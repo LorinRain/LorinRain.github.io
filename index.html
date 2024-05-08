@@ -9,8 +9,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 <body>
-	<h1>Hello World</h1>
+  <div class="progress-content">
+    <div id="progressBar" class="progress-bar"></div>
+    <div id="progressText" style="flex-shrink: 0;padding-left: 12px;"></div>
+  </div>
+  <div style="padding: 20px 16px;color:#4B5563;text-align: center;">一期一会</div>
 </body>
+<script type="text/javascript">
+  function _getDaysInYear(year) {
+    return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ? 366 : 365;
+  }
+  function _getDayOfYear() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 1);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.ceil(diff / oneDay);
+    return dayOfYear;
+  }
+
+  function _calcYearProgress() {
+    const progress = parseFloat(_getDayOfYear() / _getDaysInYear(new Date().getFullYear()));
+    document.getElementById('progressBar').innerHTML = `<div style="width:${progress * 100}%;background-color:#F9A8D4;height:100%;"></div>`;
+    document.getElementById('progressText').innerHTML = `${(progress * 100).toFixed(2)}%`;
+  }
+
+  _calcYearProgress();
+</script>
+<style type="text/css">
+  .progress-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    background-color: #FCE7F3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+</style>
 </html>
 
 
